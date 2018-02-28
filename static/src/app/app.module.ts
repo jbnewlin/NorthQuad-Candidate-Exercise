@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { RegisterDialog } from './dialogs/register-dialog';
+import { LoginDialog } from './dialogs/login-dialog';
+
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -12,7 +14,8 @@ import { AppComponent } from './app.component';
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterDialog
+    RegisterDialog,
+    LoginDialog
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,9 @@ import { AppComponent } from './app.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ RegisterDialog ]
+  entryComponents: [
+    RegisterDialog,
+    LoginDialog ]
 })
 export class AppModule {
 }

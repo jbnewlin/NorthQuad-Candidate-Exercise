@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatToolbarModule, MatButtonModule, MatDialog } from '@angular/material';
 import { FullUser } from './_models/full-user';
 import { RegisterDialog } from './dialogs/register-dialog';
+import { LoginDialog } from './dialogs/login-dialog';
+
 
 @Component({
   selector: 'app-root',
@@ -30,9 +32,21 @@ export class AppComponent implements OnInit {
 
   openRegisterDialog(): void {
     let dialogRef = this.dialog.open(RegisterDialog, {
-      width: '500px',
-      height: '500px',
-      data: {firstname: '', lastname: '', password: ''}
+      width: '300px',
+      height: '350px',
+      data: {username: '', password: ''}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openLoginDialog(): void {
+    let dialogRef = this.dialog.open(LoginDialog, {
+      width: '300px',
+      height: '270px',
+      data: {username: '', password: ''}
     });
 
     dialogRef.afterClosed().subscribe(result => {

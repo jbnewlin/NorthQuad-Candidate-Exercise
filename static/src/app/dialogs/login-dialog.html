@@ -1,5 +1,5 @@
-<h2 mat-dialog-title>Register</h2>
-<div class="registerForm">
+<h2 mat-dialog-title>Login</h2>
+<div class="loginForm">
   <div class="emailInput">
     <mat-form-field [floatLabel]="auto">
       <mat-label>Enter your email address</mat-label>
@@ -14,15 +14,8 @@
       <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
-  <div class="passwordInput">
-    <mat-form-field [floatLabel]="auto">
-      <mat-label>Reenter your password</mat-label>
-      <input matInput placeholder="Password" [formControl]="passwordReentry" required>
-      <mat-error *ngIf="password.invalid">{{getPasswordReentryErrorMessage()}}</mat-error>
-    </mat-form-field>
-  </div>
   <div class="submitButton">
-    <button mat-raised-button color="warn" [disabled]="getDisabledValue()">Register
+    <button mat-raised-button color="warn" [disabled]="getLoginDisabledValue()">Login
     </button>
   </div>
 </div>

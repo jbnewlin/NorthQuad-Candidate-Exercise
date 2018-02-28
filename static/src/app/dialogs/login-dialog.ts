@@ -3,19 +3,18 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatFormFieldModule, MatInputModule } fro
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'register-dialog',
-  templateUrl: 'register-dialog.html',
+  selector: 'login-dialog',
+  templateUrl: 'login-dialog.html',
 })
-export class RegisterDialog {
+export class LoginDialog {
 
   options: FormGroup;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
-  passwordReentry = new FormControl('', [Validators.required, Validators.minLength(6)]);
-  validCheck: boolean[] = [false, false, false];
+  validCheck: boolean[] = [false, false];
 
   constructor(
-    public dialogRef: MatDialogRef<RegisterDialog>,
+    public dialogRef: MatDialogRef<LoginDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     formField: MatFormFieldModule) {
     }
@@ -50,21 +49,8 @@ export class RegisterDialog {
     return returnValue;
   }
 
-  getPasswordReentryErrorMessage() {
-    let returnValue = '';
-    if (this.passwordReentry.hasError('required'))
-      returnValue = 'You must enter an password';
-    else if (this.passwordReentry.hasError('minlength'))
-      returnValue = 'Password requires at least 6 characters';
-    if (returnValue == '')
-      this.validCheck[2] = true;
-    else
-      this.validCheck[2] = false;
-    return returnValue;
-  }
-
-  getDisabledValue() {
-    if (this.validCheck[0] && this.validCheck[1] && this.validCheck[2]) {
+  getLoginDisabledValue() {
+    if (this.validCheck[0] && this.validCheck[1]) {
       return false;
     }
     return true;
