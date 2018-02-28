@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FullUser } from '../_models/full-user';
 
 @Component({
   selector: 'login-dialog',
@@ -9,6 +10,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 export class LoginDialog {
 
   options: FormGroup;
+  currentUser: FullUser;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
@@ -16,6 +18,12 @@ export class LoginDialog {
     public dialogRef: MatDialogRef<LoginDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     formField: MatFormFieldModule) {
+      this.data = {
+        id: 0,
+        username: "",
+        name: "",
+        password: ""
+      }
     }
 
   onNoClick(): void {
@@ -38,6 +46,10 @@ export class LoginDialog {
     else if (this.password.hasError('minlength'))
       returnValue = 'Password requires at least 6 characters';
     return returnValue;
+  }
+
+  postResults(registerData) {
+    
   }
 
 }

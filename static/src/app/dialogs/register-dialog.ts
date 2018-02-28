@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FullUser } from '../_models/full-user';
+import { User } from '../_models/user';
+import { UserService } from "../_services/user.service";
 import { MatDialogRef, MAT_DIALOG_DATA, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -18,7 +20,8 @@ export class RegisterDialog {
   constructor(
     public dialogRef: MatDialogRef<RegisterDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    formField: MatFormFieldModule) {
+    formField: MatFormFieldModule,
+    private userService: UserService) {
       this.data = {
         id: 0,
         username: "",
@@ -59,8 +62,17 @@ export class RegisterDialog {
   }
 
   postResults(registerData) {
-    console.log(registerData.username);
-    console.log(registerData.password);
+    if (registerData == undefined || registerData.email == "" || registerData.password == "") {
+      console.log("Fields not valid");
+    }
+    let user = new User(registerData);
+    console.log("Registering user " + JSON.stringify(user));
+
+    this.userService.register(user)
+      .subscribe(
+        data => {
+          console.log(data);
+        });
   }
 
 }
