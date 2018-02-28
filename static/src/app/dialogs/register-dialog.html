@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>Register</h2>
+<mat-form-field [floatLabel]="auto">
+  <mat-label>Enter your email address</mat-label>
+  <input matInput placeholder="Email" [formControl]="email" required>
+  <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+</mat-form-field>
