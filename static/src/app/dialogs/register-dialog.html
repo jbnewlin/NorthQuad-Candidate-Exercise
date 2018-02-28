@@ -3,26 +3,26 @@
   <div class="emailInput">
     <mat-form-field [floatLabel]="auto">
       <mat-label>Enter your email address</mat-label>
-      <input matInput placeholder="Email" [formControl]="email" required>
+      <input matInput [(ngModel)]="data.username" placeholder="Email" [formControl]="email" type="email" required>
       <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
   <div class="passwordInput">
     <mat-form-field [floatLabel]="auto">
       <mat-label>Enter your password</mat-label>
-      <input matInput placeholder="Password" [formControl]="password" required>
+      <input matInput [(ngModel)]="data.password" placeholder="Password" [formControl]="password" type="password" required>
       <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
   <div class="passwordInput">
     <mat-form-field [floatLabel]="auto">
       <mat-label>Reenter your password</mat-label>
-      <input matInput placeholder="Password" [formControl]="passwordReentry" required>
-      <mat-error *ngIf="password.invalid">{{getPasswordReentryErrorMessage()}}</mat-error>
+      <input matInput placeholder="Password" [formControl]="passwordReentry" type="password" required>
+      <mat-error *ngIf="passwordReentry.invalid">{{getPasswordReentryErrorMessage()}}</mat-error>
     </mat-form-field>
   </div>
   <div class="submitButton">
-    <button mat-raised-button color="warn" [disabled]="getDisabledValue()">Register
+    <button mat-raised-button color="warn" [disabled]="email.invalid || password.invalid || passwordReentry.invalid" (click)="postResults(data)">Register
     </button>
   </div>
 </div>

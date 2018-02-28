@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { FullUser } from '../_models/full-user';
 import { MatDialogRef, MAT_DIALOG_DATA, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -9,15 +10,21 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 export class RegisterDialog {
 
   options: FormGroup;
+  currentUser: FullUser;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(6)]);
   passwordReentry = new FormControl('', [Validators.required, Validators.minLength(6)]);
-  validCheck: boolean[] = [false, false, false];
 
   constructor(
     public dialogRef: MatDialogRef<RegisterDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     formField: MatFormFieldModule) {
+      this.data = {
+        id: 0,
+        username: "",
+        name: "",
+        password: ""
+      }
     }
 
   onNoClick(): void {
@@ -30,10 +37,6 @@ export class RegisterDialog {
       returnValue = 'You must enter an email';
     else if (this.email.hasError('email'))
       returnValue = 'Not a valid email';
-    if (returnValue == '')
-      this.validCheck[0] = true;
-    else
-      this.validCheck[0] = false;
     return returnValue;
   }
 
@@ -43,10 +46,6 @@ export class RegisterDialog {
       returnValue = 'You must enter an password';
     else if (this.password.hasError('minlength'))
       returnValue = 'Password requires at least 6 characters';
-    if (returnValue == '')
-      this.validCheck[1] = true;
-    else
-      this.validCheck[1] = false;
     return returnValue;
   }
 
@@ -56,18 +55,12 @@ export class RegisterDialog {
       returnValue = 'You must enter an password';
     else if (this.passwordReentry.hasError('minlength'))
       returnValue = 'Password requires at least 6 characters';
-    if (returnValue == '')
-      this.validCheck[2] = true;
-    else
-      this.validCheck[2] = false;
     return returnValue;
   }
 
-  getDisabledValue() {
-    if (this.validCheck[0] && this.validCheck[1] && this.validCheck[2]) {
-      return false;
-    }
-    return true;
+  postResults(registerData) {
+    console.log(registerData.username);
+    console.log(registerData.password);
   }
 
 }
