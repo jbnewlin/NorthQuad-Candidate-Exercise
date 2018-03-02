@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatToolbarModule, MatButtonModule, MatDialog } from '@angular/material';
+import { Router } from '@angular/router'
 import { FullUser } from './_models/full-user';
 import { RegisterDialog } from './dialogs/register-dialog';
 import { LoginDialog } from './dialogs/login-dialog';
-import { PostsService} from './_services/posts.service';
-import { DataService } from './_services/DataService'
 
 
 @Component({
@@ -16,14 +15,14 @@ export class AppComponent implements OnInit {
   title = 'app';
 
   isLoggedIn = false;
+  onMainScreen = true;
   currentUser: FullUser;
 
   pullingPosts: boolean;
   postsError: boolean;
 
   constructor(private dialog: MatDialog, public button: MatButtonModule,
-    public toolbar: MatToolbarModule, private postsService: PostsService,
-    private dataService: DataService) {
+    public toolbar: MatToolbarModule, private router: Router) {
 
   }
 
@@ -72,31 +71,22 @@ export class AppComponent implements OnInit {
     });
   }
 
+  post(): void {
+    this.onMainScreen = false;
+    this.router.navigate(['post']);
+  }
+
+  home(): void {
+    this.onMainScreen = true;
+    this.router.navigate(['']);
+  }
+
   logout(): void {
     localStorage.removeItem('currentUser');
     this.isLoggedIn = false;
     window.location.reload();
   }
 
-  viewPost(id): void {
 
-  }
-
-  loadAllPosts() {
-    this.pullingPosts = true;
-    this.postsService.getAll()
-      .subscribe(
-        data => {
-          this.pullingPosts = false;
-          this.dataService.posts = data;
-          this.postsError = false;
-        },
-        error => {
-          this.pullingPosts = false;
-          console.log('Getting sublets issue ' + error);
-          this.postsError = true;
-        }
-      );
-  }
 
 }

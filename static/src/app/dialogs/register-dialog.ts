@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 @Component({
   selector: 'register-dialog',
   templateUrl: 'register-dialog.html',
+  styleUrls: ['./register-dialog.css']
 })
 export class RegisterDialog {
 
