@@ -71,7 +71,17 @@ export class RegisterDialog {
     this.userService.register(user)
       .subscribe(
         data => {
+          if (data == "Failure") {
+            console.log("Error creating profile");
+            return;
+          }
+          this.currentUser = new FullUser(registerData);
+          if (this.currentUser) {
+            localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+            this.dialogRef.close({'currentUser': this.currentUser});
+          }
           console.log(data);
+          this.dialogRef.close();
         });
   }
 

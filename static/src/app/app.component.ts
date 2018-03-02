@@ -3,6 +3,8 @@ import { MatToolbarModule, MatButtonModule, MatDialog } from '@angular/material'
 import { FullUser } from './_models/full-user';
 import { RegisterDialog } from './dialogs/register-dialog';
 import { LoginDialog } from './dialogs/login-dialog';
+import { PostsService} from './_services/posts.service';
+import { DataService } from './_services/DataService'
 
 
 @Component({
@@ -16,8 +18,12 @@ export class AppComponent implements OnInit {
   isLoggedIn = false;
   currentUser: FullUser;
 
+  pullingPosts: boolean;
+  postsError: boolean;
+
   constructor(private dialog: MatDialog, public button: MatButtonModule,
-    public toolbar: MatToolbarModule) {
+    public toolbar: MatToolbarModule, private postsService: PostsService,
+    private dataService: DataService) {
 
   }
 
@@ -39,7 +45,14 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      if (result && result.currentUser) {
+        this.currentUser = result.currentUser;
+        console.log(result.currentUser);
+        this.isLoggedIn = true;
+      }
+      window.location.reload();
     });
+
   }
 
   openLoginDialog(): void {
@@ -51,6 +64,39 @@ export class AppComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      if (result && result.currentUser) {
+        this.currentUser = result.currentUser;
+        this.isLoggedIn = true;
+      }
+      window.location.reload();
     });
   }
+
+  logout(): void {
+    localStorage.removeItem('currentUser');
+    this.isLoggedIn = false;
+    window.location.reload();
+  }
+
+  viewPost(id): void {
+
+  }
+
+  loadAllPosts() {
+    this.pullingPosts = true;
+    this.postsService.getAll()
+      .subscribe(
+        data => {
+          this.pullingPosts = false;
+          this.dataService.posts = data;
+          this.postsError = false;
+        },
+        error => {
+          this.pullingPosts = false;
+          console.log('Getting sublets issue ' + error);
+          this.postsError = true;
+        }
+      );
+  }
+
 }

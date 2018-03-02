@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { FullUser } from '../_models/full-user';
+import { User } from '../_models/user';
+import { UserService } from "../_services/user.service";
 
 @Component({
   selector: 'login-dialog',
@@ -17,7 +19,8 @@ export class LoginDialog {
   constructor(
     public dialogRef: MatDialogRef<LoginDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    formField: MatFormFieldModule) {
+    formField: MatFormFieldModule,
+    private userService: UserService) {
       this.data = {
         id: 0,
         username: "",
@@ -48,8 +51,28 @@ export class LoginDialog {
     return returnValue;
   }
 
-  postResults(registerData) {
-    
+  postResults(loginData) {
+    if (loginData == undefined || loginData.email == "" || loginData.password == "") {
+      console.log("Fields not valid");
+    }
+    let user = new User(loginData);
+    console.log("Registering user " + JSON.stringify(user));
+
+    this.userService.login(user)
+      .subscribe(
+        data => {
+          if (data == "Failure") {
+            console.log("Error creating profile");
+            return;
+          }
+          this.currentUser = new FullUser(loginData);
+          if (this.currentUser) {
+            localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+            this.dialogRef.close({'currentUser': this.currentUser});
+          }
+          console.log(data);
+          this.dialogRef.close();
+        });
   }
 
 }

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { User } from "../_models/user";
 
 @Injectable()
-export class UserService {
+export class PostsService {
   baseURL: string;
 
     constructor(private http: Http) {
@@ -26,16 +26,10 @@ export class UserService {
         return options;
     }
 
-    register(user: User) {
-      return this.http.post(this.baseURL + '/register', user, this.getHeaders()).map((response: Response) => {
-          return response.json();
-        });
+    getAll() {
+      return this.http.get(this.baseURL + '/posts', this.getHeaders()).map((response: Response) => {
+        return response.json();
+      });
     }
 
-    login(user: User) {
-      return this.http.post(this.baseURL + '/login', user, this.getHeaders()).map((response: Response) => {
-          return response.json();
-        });
-    }
-
-}
+  }
