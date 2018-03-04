@@ -1,12 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
 <mat-toolbar color="primary">
-  <span>Josh's Game Review</span>
+  <a class="home-link" href="#"><span>Josh's Game Review</span></a>
   <span class="toolbarSpacer"></span>
   <button mat-raised-button color="warn" *ngIf="!isLoggedIn" (click)="openRegisterDialog()">Register</button>
   <button mat-raised-button color="warn" *ngIf="!isLoggedIn" (click)="openLoginDialog()">Login</button>
   <button mat-raised-button color="warn" *ngIf="isLoggedIn && onMainScreen" (click)="post()">Post</button>
-  <button mat-raised-button color="warn" *ngIf="!onMainScreen" (click)="home()">Home</button>
   <button mat-raised-button color="warn" *ngIf="isLoggedIn" (click)="logout()">Logout</button>
 </mat-toolbar>
 

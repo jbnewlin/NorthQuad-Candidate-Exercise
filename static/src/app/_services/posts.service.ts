@@ -32,4 +32,10 @@ export class PostsService {
       });
     }
 
+    getById(id: number) {
+      return this.http.get(this.baseURL + '/view-post/' + id, this.getHeaders()).map((response: Response) => {
+        return response.json();
+      });
+    }
+
   }

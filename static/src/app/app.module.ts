@@ -14,14 +14,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
-import { PostComponent } from './post/post';
+import { PostComponent } from './post/post.component';
 import { ViewPostComponent } from './viewPost/viewPost.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, data: { animation: '' } },
   { path: '*', component: LandingComponent, data: { animation: '*' } },
   { path: 'post', component: PostComponent, data: { animation: 'post' } },
-  { path: 'view-post:id', component: ViewPostComponent, data: { animation: 'post' } }
+  { path: 'view-post/:id', component: ViewPostComponent, data: { animation: 'post' } }
 ];
 
 @NgModule({
