@@ -2,5 +2,22 @@
   <h1>Not logged in</h1>
 </div>
 <div *ngIf="isLoggedIn">
-  <h1>Post a review!</h1>
+  <mat-card class="example-card">
+    <mat-card-title>Post a review!</mat-card-title>
+    <mat-card-content>
+      <mat-form-field [floatLabel]="auto">
+        <input matInput type="text" [(ngModel)]="review.game" placeholder="Name of the game" required>
+      </mat-form-field>
+      <h2>Rating 1-10</h2>
+      <mat-slider max="10" min="1" step="1" thumb-label="true" tick-interval="1" [(ngModel)]="review.rating">
+      </mat-slider>
+      <h2>Review</h2>
+      <mat-form-field>
+        <textarea matInput placeholder="Write review here" [(ngModel)]="review.review"></textarea>
+      </mat-form-field>
+      <p>
+        <button mat-raised-button (click)="onSubmit()">Submit Review</button>
+      </p>
+    </mat-card-content>
+  </mat-card>
 </div>

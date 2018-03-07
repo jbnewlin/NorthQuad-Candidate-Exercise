@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FullUser } from '../_models/full-user';
+import { Review } from '../_models/review';
+
 
 @Component({
   selector: 'postComponent',
@@ -7,12 +9,19 @@ import { FullUser } from '../_models/full-user';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
-
   isLoggedIn: boolean;
   currentUser: FullUser;
+  review: Review;
 
   constructor() {
-
+    this.review = {
+      id: 0,
+      username: "",
+      game: "",
+      rating: 0,
+      review: "",
+      time: 0
+    }
   }
 
   ngOnInit(): void {
@@ -22,5 +31,11 @@ export class PostComponent {
       this.isLoggedIn = true;
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
+  }
+
+  onSubmit(): void {
+    this.review.username = this.currentUser.username;
+    this.review.time = new Date().getTime();
+    console.log("Here " + JSON.stringify(this.review));
   }
 }

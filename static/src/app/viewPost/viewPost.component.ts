@@ -20,7 +20,14 @@ export class ViewPostComponent implements OnInit {
   currentUser: FullUser;
 
   constructor(private route: ActivatedRoute, private postsService: PostsService) {
-
+    this.post = {
+      id: 0,
+      game: "",
+      username: "",
+      rating: 0,
+      review: "",
+      time: 0
+    }
   }
 
   ngOnInit() {
