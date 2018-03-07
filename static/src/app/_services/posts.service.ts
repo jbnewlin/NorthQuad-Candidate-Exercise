@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Review } from '../_models/review';
 import 'rxjs/add/operator/map';
 
 import { User } from "../_models/user";
@@ -36,6 +37,10 @@ export class PostsService {
       return this.http.get(this.baseURL + '/view-post/' + id, this.getHeaders()).map((response: Response) => {
         return response.json();
       });
+    }
+
+    createPost(review: Review) {
+      return this.http.post(this.baseURL + '/post', review, this.getHeaders());
     }
 
   }

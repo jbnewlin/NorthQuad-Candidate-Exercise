@@ -80,5 +80,14 @@ def getPosts():
 def viewPost(id):
     return json.dumps(posts[id - 1])
 
+@app.route("/post", methods=['POST'])
+def post():
+    review = request.get_json()
+    for i in review:
+        print i + ": "
+        print review.get(i)
+    posts.append(review)
+    return json.dumps("got it")
+
 if __name__ == "__main__":
     app.run()

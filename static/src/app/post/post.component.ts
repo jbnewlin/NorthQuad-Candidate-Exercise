@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PostsService } from '../_services/posts.service';
 import { FullUser } from '../_models/full-user';
 import { Review } from '../_models/review';
 
@@ -13,7 +14,7 @@ export class PostComponent {
   currentUser: FullUser;
   review: Review;
 
-  constructor() {
+  constructor(private postsService: PostsService) {
     this.review = {
       id: 0,
       username: "",
@@ -37,5 +38,11 @@ export class PostComponent {
     this.review.username = this.currentUser.username;
     this.review.time = new Date().getTime();
     console.log("Here " + JSON.stringify(this.review));
+    this.postsService.createPost(this.review)
+      .subscribe(
+        data => {
+          console.log(data);
+        });
+
   }
 }
