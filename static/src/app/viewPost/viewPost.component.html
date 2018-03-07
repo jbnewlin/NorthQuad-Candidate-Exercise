@@ -1,7 +1,7 @@
 <mat-card class="example-card" *ngIf="!pullingPost">
   <mat-card-header>
     <mat-card-title style="size: 16px;">{{post.game}}</mat-card-title>
-    <mat-card-subtitle>{{post.username}}</mat-card-subtitle>
+    <mat-card-subtitle>{{post.username}} | {{post.time | date}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>{{post.review}}</p>
