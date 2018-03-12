@@ -1,4 +1,4 @@
-<mat-grid-list cols="3">
+<mat-grid-list cols="4" rowHeight="2:1">
   <div class="card listing-card col-md-5" *ngFor="let property of dataService.posts">
     <mat-grid-tile>
       <a [routerLink]="['/view-post', property.id]" style="text-decoration: none; color: black">
@@ -10,9 +10,6 @@
           <mat-card-content>
             <p>{{property.review}}</p>
           </mat-card-content>
-          <mat-card-actions>
-            <button mat-button (click)="viewPost(property.id)">VIEW</button>
-          </mat-card-actions>
         </mat-card>
       </a>
     </mat-grid-tile>
