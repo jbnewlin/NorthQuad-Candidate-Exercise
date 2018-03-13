@@ -43,6 +43,7 @@ export class LandingComponent {
           this.pullingPosts = false;
           this.dataService.posts = data;
           this.postsError = false;
+          console.log(this.dataService.posts);
         },
         error => {
           this.pullingPosts = false;

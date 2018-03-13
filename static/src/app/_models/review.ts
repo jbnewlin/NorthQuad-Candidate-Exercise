@@ -1,5 +1,5 @@
 export class Review {
-  id: number;
+  post_id: number;
   game: string;
   username: string;
   rating: number;
@@ -7,7 +7,7 @@ export class Review {
   time: number;
 
   constructor(id: number, game: string, username: string, rating: number, review: string, time: number) {
-    this.id = id;
+    this.post_id = id;
     this.game = game;
     this.username = username;
     this.rating = rating;

@@ -1,14 +1,14 @@
 <mat-grid-list cols="4" rowHeight="2:1">
   <div class="card listing-card col-md-5" *ngFor="let property of dataService.posts">
     <mat-grid-tile>
-      <a [routerLink]="['/view-post', property.id]" style="text-decoration: none; color: black">
+      <a [routerLink]="['/view-post', property.post_id]" style="text-decoration: none; color: black">
         <mat-card>
           <mat-card-header>
-            <mat-card-title>{{property.game}}</mat-card-title>
-            <mat-card-subtitle>{{property.username}}</mat-card-subtitle>
+            <mat-card-title>{{property.game}} | {{property.rating}}/10</mat-card-title>
+            <mat-card-subtitle>{{property.username}} | {{property.date_posted}}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <p>{{property.review}}</p>
+            <p>{{property.review}}...</p>
           </mat-card-content>
         </mat-card>
       </a>

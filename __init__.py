@@ -77,6 +77,9 @@ class User(Base):
         self.password = password
         self.email = email
 
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 class Post(Base):
     __tablename__ = 'posts'
     __table_args__ = {'extend_existing': True}
@@ -93,6 +96,9 @@ class Post(Base):
         self.rating = rating
         self.review = review
         self.game = game
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 @app.route("/")
@@ -111,28 +117,38 @@ def register():
         session.add(new_user)
         session.commit()
     else:
-        print "Already exists"
-        return json.dumps("Failure")
+        return json.dumps("User already exists")
     return json.dumps("Success")
 
 @app.route("/login", methods=['POST'])
 def login():
     post = request.get_json()
-
-    (ret, ), = session.query(exists().where(User.email==username))
-    if ret == True:
-        print "Gottem"
-    return json.dumps("Logged in")
+    user = session.query(User).filter(User.email==post.username).first()
+    if user is not None:
+        if user.password == post.password:
+            return json.dumps("Logged in")
+        return json.dumps("Wrong password")
+    return json.dumps("No user found")
 
 @app.route("/posts", methods=['GET'])
 def getPosts():
     posts = session.query(Post).all()
-    print posts
-    return json.dumps([dict(post) for post in posts])
+    post_list = []
+    for p in posts:
+        d = p.as_dict()
+        d['review'] = d['review'][:50]
+        user = session.query(User).filter(User.user_id==d['user_id']).first()
+        d['username'] = user.username
+        post_list.append(d)
+    return json.dumps(post_list, indent=4, sort_keys=True, default=str)
 
 @app.route("/view-post/<int:id>", methods=['GET'])
 def viewPost(id):
-    return json.dumps(posts[id - 1])
+    post = session.query(Post).filter(Post.post_id==id).first()
+    d = post.as_dict()
+    user = session.query(User).filter(User.user_id==d['user_id']).first()
+    d['username'] = user.username
+    return json.dumps(d, indent=4, sort_keys=True, default=str)
 
 @app.route("/post", methods=['POST'])
 def post():
@@ -143,7 +159,7 @@ def post():
         new_post = Post(user.user_id, datetime.fromtimestamp(review["time"] / 1000), review["rating"], review["review"], review["game"])
         session.add(new_post)
         session.commit()
-    return json.dumps("got it")
+    return json.dumps(new_post.post_id)
 
 if __name__ == "__main__":
     app.run()

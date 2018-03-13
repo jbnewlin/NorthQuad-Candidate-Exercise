@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { PostsService } from '../_services/posts.service';
 import { FullUser } from '../_models/full-user';
 import { Review } from '../_models/review';
@@ -14,9 +15,9 @@ export class PostComponent {
   currentUser: FullUser;
   review: Review;
 
-  constructor(private postsService: PostsService) {
+  constructor(private postsService: PostsService, private router: Router) {
     this.review = {
-      id: 0,
+      post_id: 0,
       username: "",
       game: "",
       rating: 0,
@@ -41,7 +42,8 @@ export class PostComponent {
     this.postsService.createPost(this.review)
       .subscribe(
         data => {
-          console.log(data);
+          console.log("I'm here: " + data);
+          // this.router.navigateByUrl('/view-post/' + data.post_id)
         });
 
   }

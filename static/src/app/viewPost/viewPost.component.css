@@ -1,5 +1,9 @@
-.card-img-top {
-  width: auto;
-  min-height: 500px;
-  max-height: 750px
+.mat-card-header {
+  margin: auto;
+  padding: 10px;
+}
+
+.mat-card-content {
+  margin: auto;
+  padding: 10px;
 }

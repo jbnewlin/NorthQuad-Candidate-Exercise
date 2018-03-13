@@ -21,7 +21,7 @@ export class ViewPostComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private postsService: PostsService) {
     this.post = {
-      id: 0,
+      post_id: 0,
       game: "",
       username: "",
       rating: 0,
@@ -49,6 +49,7 @@ export class ViewPostComponent implements OnInit {
     this.postsService.getById(id)
       .subscribe(
       data => {
+        console.log(data);
         this.post = data;
         this.postError = false;
       },
