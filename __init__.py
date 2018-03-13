@@ -21,49 +21,6 @@ session = Session()
 
 Base = declarative_base()
 
-
-# posts = []
-# dict1 = {
-#     "id": 1,
-#     "game": "Skyrim",
-#     "username": "jnewlin",
-#     "rating": 5,
-#     "review": "Skyrim is one of my favorite games in my inventory. I'm writing a long description to see if it will look good in the card on the landing page."
-# }
-# dict2 = {
-#     "id": 2,
-#     "game": "Minecraft",
-#     "username": "jnewlin",
-#     "rating": 3,
-#     "review": "Minecraft is a buggy game, sadly. It's still very fun and customizable. I'm writing a long description to see if it will look good in the card on the landing page."
-# }
-# dict3 = {
-#     "id": 3,
-#     "game": "Cube World",
-#     "username": "jnewlin",
-#     "rating": 1,
-#     "review": "Minecraft is a buggy game, sadly. It's still very fun and customizable. I'm writing a long description to see if it will look good in the card on the landing page."
-# }
-# dict4 = {
-#     "id": 4,
-#     "game": "Stardew Valley",
-#     "username": "jnewlin",
-#     "rating": 5,
-#     "review": "Minecraft is a buggy game, sadly. It's still very fun and customizable. I'm writing a long description to see if it will look good in the card on the landing page."
-# }
-# dict5 = {
-#     "id": 5,
-#     "game": "Banished",
-#     "username": "jnewlin",
-#     "rating": 5,
-#     "review": "Minecraft is a buggy game, sadly. It's still very fun and customizable. I'm writing a long description to see if it will look good in the card on the landing page."
-# }
-# posts.append(dict1)
-# posts.append(dict2)
-# posts.append(dict3)
-# posts.append(dict4)
-# posts.append(dict5)
-
 class User(Base):
     __tablename__ = 'users'
     __table_args__ = {'extend_existing': True}
@@ -123,9 +80,9 @@ def register():
 @app.route("/login", methods=['POST'])
 def login():
     post = request.get_json()
-    user = session.query(User).filter(User.email==post.username).first()
+    user = session.query(User).filter(User.email==post['username']).first()
     if user is not None:
-        if user.password == post.password:
+        if user.password == post['password']:
             return json.dumps("Logged in")
         return json.dumps("Wrong password")
     return json.dumps("No user found")

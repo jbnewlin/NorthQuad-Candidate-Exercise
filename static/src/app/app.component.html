@@ -3,6 +3,7 @@
 <mat-toolbar color="primary">
   <a class="home-link" href="#"><span>Josh's Game Review</span></a>
   <span class="toolbarSpacer"></span>
+  <h2 *ngIf="isLoggedIn" style="padding: 5px">{{currentUser.username}}</h2>
   <button mat-raised-button color="warn" *ngIf="!isLoggedIn" (click)="openRegisterDialog()">Register</button>
   <button mat-raised-button color="warn" *ngIf="!isLoggedIn" (click)="openLoginDialog()">Login</button>
   <button mat-raised-button color="warn" *ngIf="isLoggedIn && onMainScreen" (click)="post()">Post</button>
