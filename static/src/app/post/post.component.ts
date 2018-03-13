@@ -43,7 +43,8 @@ export class PostComponent {
       .subscribe(
         data => {
           console.log("I'm here: " + data);
-          // this.router.navigateByUrl('/view-post/' + data.post_id)
+          console.log(data.toString);
+          this.router.navigateByUrl('/view-post/' + data)
         });
 
   }

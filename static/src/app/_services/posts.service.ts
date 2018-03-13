@@ -40,7 +40,9 @@ export class PostsService {
     }
 
     createPost(review: Review) {
-      return this.http.post(this.baseURL + '/post', review, this.getHeaders());
+      return this.http.post(this.baseURL + '/post', review, this.getHeaders()).map((response: Response) => {
+        return response.json();
+      });
     }
 
   }

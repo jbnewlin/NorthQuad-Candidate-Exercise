@@ -153,13 +153,14 @@ def viewPost(id):
 @app.route("/post", methods=['POST'])
 def post():
     review = request.get_json()
-    print review["time"] / 1000
     user = session.query(User).filter(User.email==review["username"]).first()
     if user is not None:
         new_post = Post(user.user_id, datetime.fromtimestamp(review["time"] / 1000), review["rating"], review["review"], review["game"])
         session.add(new_post)
         session.commit()
-    return json.dumps(new_post.post_id)
+        print "RETURNING ", int(new_post.post_id)
+        return json.dumps(int(new_post.post_id))
+    return json.dumps("No user")
 
 if __name__ == "__main__":
     app.run()
